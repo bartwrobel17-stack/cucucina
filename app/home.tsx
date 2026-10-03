@@ -6,12 +6,12 @@ import { Gallery } from "../components/Gallery";
 import { OwnerPanel } from "../components/OwnerPanel";
 
 const photos = [
-"https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnbxbKj7LFihiUHbUeaHoQOU1p3IkFWl2ditIeVcQrGeVm-JSJdtsVcHBbtYjVAW9G-FB5X1lhUactm7Xjqf1NAsWLnbqcC1yjAA0GL63stg72L6k7YTGlFtkFWK9Td0f-O6Nd7yx6dfzs=w397-h298-k-no",
-"https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlg9KYXdsak678_uM_9WMntiV_dD09x5zK5DqI69u6WjRP-nN3YPcF1HMEvMRUcOBoSQRPeBJCY8y-w4iTH2JM0g616WPZqBbUaN8xeq_K8DyRKJeIcu1mmKVMf1v2iHCLUpZJrEeqw9No=w224-h298-k-no",
-"https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkrHpK4AuW8gZp48H0Wz-n_o2OHefwYVTjxt7dRz_HQNDBRIePUPDqPV5LeKQmI1nj2G12UlZZ_tWlmiI__Yu-um23HAInWTtBY1lpeVxMb3amgDxpnBy0fs0JvLr5l5bypsFgEG1PCnpTv=w224-h398-k-no",
-"https://lh3.googleusercontent.com/gps-cs-s/AHRPTWl_ZzhorQazdilQlLyTSgX7ZLin2NnDOb816wTSEJRwDo6o6hAoGCIWPPhIwnY5L86dxg5vR5oXQkvUDFFn5O-8QmFnZdWPwq1JScLg9YZlej3a_oy4TOyLdW5vbNMrmDUg5VNEnSxLleHN=w420-h298-k-no",
-"https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk6BbNk3dNgZwi45UolyfTz3hDni_OGRsZ-3_sH5eZQ0WfxtTVUNpp1RhPvpLRu_f0rWm38eB9AnE2FnORINEFmW4c5U4WtNv-n_zDJaf2sPn-ARtr3EsuoTx7jEEbIlFY8GGgBchVw78k=w224-h298-k-no",
-"https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlElAmFhl9f6eGQYY2TS_CL_FzUV7qxS90yxE1Enz8E-wfGg40JLmwkj7VfC7yzqKT62xNNLM3wuPvlEhe97QlmDmXKt9ZzQ67fEsMC-mCSu53xy-hkrh-0QYt7tv3YRcVZ2o2nPQysP8Oh=w224-h298-k-no"
+"https://images.unsplash.com/photo-1660950185000-294b2e3b002e?auto=format&fit=crop&w=1800&q=85",
+"https://images.unsplash.com/photo-1585828922344-85c9daa264b0?auto=format&fit=crop&w=1600&q=85",
+"https://images.unsplash.com/photo-1767713362918-d6db856570ba?auto=format&fit=crop&w=1600&q=85",
+"https://images.unsplash.com/photo-1715443973096-c74f7a532324?auto=format&fit=crop&w=1400&q=85",
+"https://images.unsplash.com/photo-1672596467694-65f215f9b5fa?auto=format&fit=crop&w=1400&q=85",
+"https://images.unsplash.com/photo-1660950185000-294b2e3b002e?auto=format&fit=crop&w=1400&q=85"
 ];
 const reviews=[["Zosia „Skitusi” Kułakowska","Przepyszna pizza neapolitańska, bardzo dobrej jakości składniki i cudowne ciasto!"],["Paula Wojcieszak","Kameralna pizzeria na Polance. Fajny klimat, stoliczki na zewnątrz i bardzo dobre ciasto."],["Kinga P","Bardzo smaczna pizza, miła obsługa."]];
 const dishes=[["Mortadela Pistacjowa","pistacja · mortadela · mozzarella","34 zł"],["Margherita","pomodoro · fior di latte · bazylia","28 zł"],["Nduja","pikantna nduja · mozzarella · miód","33 zł"]];
