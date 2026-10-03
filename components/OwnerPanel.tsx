@@ -28,7 +28,12 @@ export function OwnerPanel({onClose}:{onClose:()=>void}) {
     files.forEach(file=>{
       if(!file.type.startsWith("image/")) return;
       const reader=new FileReader();
-      reader.onload=()=>saveGallery([...gallery, String(reader.result)]);
+      reader.onload=()=>{
+        try {
+          const current=JSON.parse(localStorage.getItem(GALLERY_KEY)||"[]");
+          saveGallery([...current, String(reader.result)]);
+        } catch {}
+      };
       reader.readAsDataURL(file);
     });
     e.target.value="";
