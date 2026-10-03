@@ -9,7 +9,12 @@ export function Gallery({initial}:{initial:string[]}){
 
   useEffect(()=>{
     try { const x=localStorage.getItem("cucucina-gallery"); if(x) setItems(JSON.parse(x)); } catch {}
-  },[]);
+    const onStorage = () => {
+      try { const x=localStorage.getItem("cucucina-gallery"); if(x) setItems(x ? JSON.parse(x) : initial); } catch {}
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  },[initial]);
 
   function renderImage(src:string, alt:string, fill=true){
     if(src.startsWith("data:")) return <img src={src} alt={alt} />;
