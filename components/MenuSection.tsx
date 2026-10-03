@@ -27,13 +27,24 @@ function readMenu():MenuItem[]{
 
 export function MenuSection(){
   const [items,setItems]=useState<MenuItem[]>(defaultMenu);
-  useEffect(()=>{setItems(readMenu());const onStorage=()=>setItems(readMenu());window.addEventListener("storage",onStorage);return()=>window.removeEventListener("storage",onStorage)},[]);
+  const [menuPhotos,setMenuPhotos]=useState<string[]>([]);
+  useEffect(()=>{
+    setItems(readMenu());
+    try { const raw=localStorage.getItem("cucucina-menu-photos"); if(raw) setMenuPhotos(JSON.parse(raw)); } catch {}
+    const onStorage=()=>{
+      setItems(readMenu());
+      try { const raw=localStorage.getItem("cucucina-menu-photos"); setMenuPhotos(raw?JSON.parse(raw):[]); } catch {}
+    };
+    window.addEventListener("storage",onStorage);
+    return()=>window.removeEventListener("storage",onStorage)
+  },[]);
   return <section className="menu-section" id="menu">
     <div className="section-head"><div><div className="eyebrow">02 / MENU</div><h2>Pełne menu.<br/><em>Bez zgadywania.</em></h2></div><span className="price-note">33–34 CM · PIZZA</span></div>
     <div className="menu-cards">{items.map(item=><article className="menu-card" key={item.id}>
       <div className="menu-card-image">{item.image&&<Image src={item.image} alt={item.name} fill sizes="(max-width:800px) 100vw, 33vw"/>}</div>
       <div className="menu-card-copy"><div><h3>{item.name}</h3><p>{item.description}</p></div><strong>{item.price}</strong></div>
     </article>)}</div>
+    {menuPhotos.length>0&&<div className="full-menu-photos"><div className="eyebrow">PEŁNA KARTA MENU</div><div className="full-menu-grid">{menuPhotos.map((src,i)=><img key={src+i} src={src} alt={"Pełne menu Cucucina "+(i+1)}/>)}</div></div>}
     <div className="menu-bottom"><p>Pełna karta jest edytowalna w panelu właściciela.</p><a className="button outline" href="tel:+48514055895">Zamów telefonicznie <Phone size={16}/></a></div>
   </section>
 }
