@@ -1,3 +1,33 @@
 "use client";
-import Image from "next/image"; import { useEffect,useState } from "react"; import { ChevronLeft,ChevronRight,X } from "lucide-react";
-export function Gallery({initial}:{initial:string[]}){const [items,setItems]=useState(initial);const [active,setActive]=useState<number|null>(null);useEffect(()=>{try{const x=localStorage.getItem("cucucina-gallery");if(x)setItems(JSON.parse(x))}catch{}},[]);useEffect(()=>{try{localStorage.setItem("cucucina-gallery",JSON.stringify(items))}catch{}},[items]);return <><div className="masonry">{items.map((src,i)=><button key={src+i} className={"gallery-card g"+(i%5)} onClick={()=>setActive(i)}>src.startsWith("data:")?<img src={src} alt={"Cucucina, zdjęcie "+(i+1)}/>:<Image src={src} alt={"Cucucina, zdjęcie "+(i+1)} fill sizes="(max-width:700px) 50vw, 33vw"/></button>)}</div>{active!==null&&<div className="lightbox" role="dialog" aria-modal="true"><button className="lb-close" onClick={()=>setActive(null)}><X/></button><button className="lb-prev" onClick={()=>setActive((active-1+items.length)%items.length)}><ChevronLeft/></button><div className="lb-image"><Image src={items[active]} alt="Podgląd galerii Cucucina" fill sizes="100vw"/></div><button className="lb-next" onClick={()=>setActive((active+1)%items.length)}><ChevronRight/></button><span className="lb-count">{active+1} / {items.length}</span></div>}</>}
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
+
+export function Gallery({initial}:{initial:string[]}){
+  const [items,setItems]=useState(initial);
+  const [active,setActive]=useState<number|null>(null);
+
+  useEffect(()=>{
+    try { const x=localStorage.getItem("cucucina-gallery"); if(x) setItems(JSON.parse(x)); } catch {}
+  },[]);
+
+  function renderImage(src:string, alt:string, fill=true){
+    if(src.startsWith("data:")) return <img src={src} alt={alt} />;
+    return <Image src={src} alt={alt} fill={fill} sizes="(max-width:700px) 50vw, 33vw" />;
+  }
+
+  return <>
+    <div className="masonry">
+      {items.map((src,i)=><button key={src+i} className={"gallery-card g"+(i%5)} onClick={()=>setActive(i)}>
+        {renderImage(src,"Cucucina, zdjęcie "+(i+1))}
+      </button>)}
+    </div>
+    {active!==null&&<div className="lightbox" role="dialog" aria-modal="true">
+      <button className="lb-close" onClick={()=>setActive(null)}><X/></button>
+      <button className="lb-prev" onClick={()=>setActive((active-1+items.length)%items.length)}><ChevronLeft/></button>
+      <div className="lb-image">{renderImage(items[active],"Podgląd galerii Cucucina")}</div>
+      <button className="lb-next" onClick={()=>setActive((active+1)%items.length)}><ChevronRight/></button>
+      <span className="lb-count">{active+1} / {items.length}</span>
+    </div>}
+  </>;
+}
