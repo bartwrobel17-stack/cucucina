@@ -36,3 +36,31 @@
 button:focus-visible,a:focus-visible{outline:2px solid var(--red);outline-offset:4px}
 @media(max-width:800px){.menu-tools{align-items:stretch;flex-direction:column}.menu-search{min-width:0;width:100%}.menu-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.menu-tabs button{justify-content:center;padding:12px 8px}.menu-card:hover{transform:none}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+/* Tactile micro-interactions shared across the whole Cucucina experience */
+.button,.nav-order,.text-link,.footer-links a,.footer-links button,.menu-tabs button,.owner-tabs button,.gallery-card,.menu-btn,.faq-item>button,.lb-close,.lb-prev,.lb-next,.menu-photo-item button,.owner-delete{transition:transform .18s cubic-bezier(.2,.75,.25,1),box-shadow .22s ease,background-color .22s ease,color .22s ease,border-color .22s ease,opacity .22s ease}
+.button:hover,.nav-order:hover{transform:translateY(-2px) scale(1.015);box-shadow:0 8px 22px #00000018}
+.button:active,.nav-order:active,.menu-tabs button:active,.owner-tabs button:active,.menu-btn:active,.faq-item>button:active,.lb-close:active,.lb-prev:active,.lb-next:active,.owner-delete:active{transform:scale(.97)}
+.text-link:hover,.footer-links a:hover,.footer-links button:hover{opacity:.72;transform:translateX(3px)}
+.menu-tabs button:hover,.owner-tabs button:hover{box-shadow:0 5px 16px #00000012}
+.gallery-card{overflow:hidden}
+.gallery-card img{transition:transform .6s cubic-bezier(.2,.7,.2,1),filter .35s ease}
+.gallery-card:hover img{transform:scale(1.045);filter:saturate(1.08)}
+.menu-btn:hover,.lb-close:hover,.lb-prev:hover,.lb-next:hover{box-shadow:0 0 0 5px #b43b271c}
+.faq-section{display:grid;grid-template-columns:.85fr 1.15fr;gap:8vw;padding:100px 8vw;background:var(--paper);color:var(--ink)}
+.faq-heading h2{font-family:"Playfair Display",serif;font-size:clamp(38px,5vw,68px);line-height:1.04;font-weight:500;letter-spacing:-.045em;margin:24px 0}
+.faq-heading h2 em{color:var(--red);font-weight:400}
+.faq-heading>p{max-width:320px;color:var(--muted);font-size:13px;line-height:1.8}
+.faq-list{border-top:1px solid var(--line)}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-item>button{width:100%;display:grid;grid-template-columns:38px 1fr 20px;align-items:center;gap:14px;padding:23px 0;border:0;background:transparent;color:var(--ink);text-align:left;cursor:pointer}
+.faq-number{font-size:10px;color:var(--red);letter-spacing:.08em}
+.faq-item>button strong{font-size:14px;font-weight:500}
+.faq-item>button svg{transition:transform .25s ease,color .25s ease;color:var(--red)}
+.faq-item.is-open>button svg{transform:rotate(180deg)}
+.faq-answer{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+.faq-answer p{overflow:hidden;margin:0;color:var(--muted);font-size:12px;line-height:1.8}
+.faq-item.is-open .faq-answer{grid-template-rows:1fr}
+.faq-item.is-open .faq-answer p{padding:0 32px 22px 52px}
+@media(max-width:800px){.faq-section{grid-template-columns:1fr;gap:30px;padding:70px 5vw}.faq-item>button{grid-template-columns:28px 1fr 20px;gap:9px;padding:19px 0}.faq-item.is-open .faq-answer p{padding:0 10px 20px 37px}}
+@media(hover:none){.button:hover,.nav-order:hover,.gallery-card:hover img,.menu-card:hover .menu-card-image img{transform:none;box-shadow:none}}
