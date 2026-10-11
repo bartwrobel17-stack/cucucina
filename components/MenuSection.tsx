@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Phone } from "lucide-react";
+import { Phone, Search, SlidersHorizontal } from "lucide-react";
 
 export type MenuItem = { id:string; name:string; description:string; price:string; image?:string };
 
@@ -28,6 +28,19 @@ function readMenu():MenuItem[]{
 export function MenuSection(){
   const [items,setItems]=useState<MenuItem[]>(defaultMenu);
   const [menuPhotos,setMenuPhotos]=useState<string[]>([]);
+  const [category,setCategory]=useState("Wszystkie");
+  const [query,setQuery]=useState("");
+  const categories=["Wszystkie","Klasyczne","Mięsne","Wegetariańskie"];
+  const groupFor=(item:MenuItem)=>{
+    if(["margherita","marinara","quattro-formaggi","melanzane"].includes(item.id)) return "Wegetariańskie";
+    if(["salami-classica","salami-piccante","mista-carne","cotto","parma","cucucina","salsiccia"].includes(item.id)) return "Mięsne";
+    return "Klasyczne";
+  };
+  const filtered=items.filter(item=>{
+    const matchesCategory=category==="Wszystkie" || (category==="Klasyczne" ? ["margherita","marinara"].includes(item.id) : groupFor(item)===category);
+    const term=query.trim().toLocaleLowerCase("pl");
+    return matchesCategory && (!term || `${item.name} ${item.description}`.toLocaleLowerCase("pl").includes(term));
+  });
   useEffect(()=>{
     setItems(readMenu());
     try { const raw=localStorage.getItem("cucucina-menu-photos"); if(raw) setMenuPhotos(JSON.parse(raw)); } catch {}
@@ -40,10 +53,13 @@ export function MenuSection(){
   },[]);
   return <section className="menu-section" id="menu">
     <div className="section-head"><div><div className="eyebrow">02 / MENU</div><h2>Pełne menu.<br/><em>Bez zgadywania.</em></h2></div><span className="price-note">33–34 CM · PIZZA</span></div>
-    <div className="menu-cards">{items.map(item=><article className="menu-card" key={item.id}>
+    <div className="menu-tools"><div className="menu-tabs" role="tablist" aria-label="Kategorie menu">{categories.map(label=><button key={label} role="tab" aria-selected={category===label} className={category===label?"active":""} onClick={()=>setCategory(label)}><SlidersHorizontal size={13}/>{label}</button>)}</div><label className="menu-search"><Search size={16}/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Szukaj pizzy lub składnika" aria-label="Szukaj w menu"/>{query&&<button type="button" onClick={()=>setQuery("")} aria-label="Wyczyść wyszukiwanie">×</button>}</label></div>
+    <div className="menu-result-count">{filtered.length} {filtered.length===1?"pozycja":"pozycji"} w menu</div>
+    <div className="menu-cards">{filtered.map(item=><article className="menu-card" key={item.id}>
       <div className="menu-card-image">{item.image&&<Image src={item.image} alt={item.name} fill sizes="(max-width:800px) 100vw, 33vw"/>}</div>
       <div className="menu-card-copy"><div><h3>{item.name}</h3><p>{item.description}</p></div><strong>{item.price}</strong></div>
     </article>)}</div>
+    {filtered.length===0&&<div className="menu-empty">Nie znaleziono pizzy. Spróbuj innej nazwy lub składnika.</div>}
     {menuPhotos.length>0&&<div className="full-menu-photos"><div className="eyebrow">PEŁNA KARTA MENU</div><div className="full-menu-grid">{menuPhotos.map((src,i)=><img key={src+i} src={src} alt={"Pełne menu Cucucina "+(i+1)}/>)}</div></div>}
     <div className="menu-bottom"><p>Pełna karta jest edytowalna w panelu właściciela.</p><a className="button outline" href="tel:+48514055895">Zamów telefonicznie <Phone size={16}/></a></div>
   </section>
